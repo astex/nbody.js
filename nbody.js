@@ -67,7 +67,7 @@ var State = function(x, v, a, m) {
       hash = self.hash();
       r = other.x.subtract(self.x);
       f = r.unit().multiply(
-        -1 * G * self.mass * other.mass /
+        1 * G * self.m * other.m /
         Math.pow(r.magnitude(), 2)); // (kg m s^-2)
 
       self._forces[other_hash] = f;
@@ -112,17 +112,6 @@ var Body = function() {
     //  The last State in the body's history.
     return self.states[self.states.length - 1];
   };
-
-  self.get_force = function(other) {
-    // Get the force on this object by another.
-    //
-    // Args:
-    //  other: Another body instance.
-    //
-    // Returns:
-    //  The gravitational force vector of other applied on this body.
-    return self.current_state().get_force(other.current_state())
-  };
 };
 
 
@@ -157,7 +146,7 @@ var Simulation = function() {
     // Returns:
     //  self
     var i, j;
-    var x, a, f;
+    var a, f;
     var old_state, new_state;
     var new_xs = [];
     var new_states = [];
@@ -166,15 +155,17 @@ var Simulation = function() {
     //  calculate their new position.
     for (i = 0; i < self.bodies.length; i++) {
       old_state = self.bodies[i].get_state();
+      new_state = new State();
 
       // Velocity verlet.
       // x = x + vt + .5at^2
-      x = old_state.x
+      new_state.x = old_state.x
         .add(old_state.v.multiply(self.step_size))
         .add(old_state.a.multiply(.5 * Math.pow(self.step_size, 2)));
+      new_state.m = old_state.m;
 
       // Initially create the state with just the new position.
-      new_states.push(new State(x))
+      new_states.push(new_state);
     }
 
     // Calculate the new velocity from the states created above.
@@ -188,14 +179,14 @@ var Simulation = function() {
       //  body in the simulation.
       f = new Vector([0, 0]);
       for (j = 0; j < new_states.length; j++) {
-        if (i != j)
+        if (i != j) {
           f = f.add(new_state.get_force(new_states[j]));
+        }
       }
       a = f.divide(old_state.m);
 
       // Velocity verlet.
       new_state.a = a;
-      new_state.m = old_state.m;
       // v = v + .5(old_a + a)t
       new_state.v = old_state.v
         .add(new_state.a
