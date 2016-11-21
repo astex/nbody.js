@@ -182,7 +182,7 @@ var Simulation = function() {
 
       // Calculate an force vector as the sum of the gravity due to every other
       //  body in the simulation.
-      f = Vector([0, 0]);
+      f = new Vector([0, 0]);
       for (j = 0; j < new_states.length; i++) {
         if (i != j)
           f = f.add(new_state.get_force(new_states[j]));
