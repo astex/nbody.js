@@ -1,6 +1,6 @@
 var au = 1.496 * Math.pow(10, 11);
 var display_size = 3 * au;
-var circle_size = 10;
+var circle_size = 5;
 
 // TODO: Add more bodies.
 var sun = new State(
@@ -33,29 +33,25 @@ var draw = function() {
   // TODO: Make radius a function of mass.
   var canvas = $('canvas')[0];
   var ctx = canvas.getContext("2d");
-  var height = $('canvas').height();
-  var width = $('canvas').width();
-  var scale = Math.min(height, width) / display_size;
+  var scale;
   var i;
   var state;
   var x, y;
 
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
+  scale = Math.min(canvas.height, canvas.width) / display_size / 2;
+  center_x = canvas.width / 2;
+  center_y = canvas.height / 2;
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   for (i = 0; i < simulation.bodies.length; i++) {
     state = simulation.bodies[i].get_state();
-    x = scale * state.x.values[0];
-    y = scale * state.x.values[1];
+    x = center_x + scale * state.x.values[0];
+    y = center_y + scale * state.x.values[1];
     ctx.beginPath();
-    ctx.arc(
-      scale * state.x.values[0],
-      scale * state.x.values[1],
-      circle_size,
-      0,
-      2 * Math.PI);
+    ctx.arc(x, y, circle_size, 0, 2 * Math.PI);
     ctx.stroke();
   }
 };
