@@ -35,21 +35,29 @@ var draw = function() {
   var ctx = canvas.getContext("2d");
   var height = $('canvas').height();
   var width = $('canvas').width();
-  var scale = display_size / Math.min(height, width);
+  var scale = Math.min(height, width) / display_size;
   var i;
   var state;
+  var x, y;
 
-  ctx.beginPath();
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
   for (i = 0; i < simulation.bodies.length; i++) {
     state = simulation.bodies[i].get_state();
+    x = scale * state.x.values[0];
+    y = scale * state.x.values[1];
+    ctx.beginPath();
     ctx.arc(
       scale * state.x.values[0],
       scale * state.x.values[1],
       circle_size,
       0,
       2 * Math.PI);
+    ctx.stroke();
   }
-  ctx.stroke();
 };
 
 var main = function() {
