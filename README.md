@@ -4,7 +4,7 @@ A javascript n-body simulation framework.
 
 ## Installation
 
-It's just a javascript file.  I haven't done anything fancy yet.  Download it and add it to a `script` tag.
+It's just a couple of `.js` files.  I haven't done anything fancy yet.  Download them and add them to some `script` tags.
 
 ## SetUp
 
