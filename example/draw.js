@@ -32,7 +32,7 @@ var draw = function() {
   // TODO: Draw some number of previous states in different colors.
   // TODO: Make radius a function of mass.
   var canvas = $('canvas')[0];
-  var context = canvas.getContext("2d");
+  var ctx = canvas.getContext("2d");
   var height = $('canvas').height();
   var width = $('canvas').width();
   var scale = display_size / Math.min(height, width);
