@@ -106,7 +106,7 @@ var Body = function() {
     //
     // Returns:
     //  The last State in the body's history.
-    return self.states[-1];
+    return self.states[self.states.length - 1];
   };
 
   self.get_force = function(other) {
