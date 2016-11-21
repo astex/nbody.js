@@ -97,6 +97,10 @@ var Body = function() {
     //
     // Returns:
     //  self
+    if (self.states.length > 5)
+      self.states = self.states.slice(
+        self.states.length - 5,
+        self.states.length);
     self.states.push(state);
     return self;
   };
@@ -183,11 +187,11 @@ var Simulation = function() {
       // Calculate an force vector as the sum of the gravity due to every other
       //  body in the simulation.
       f = new Vector([0, 0]);
-      for (j = 0; j < new_states.length; i++) {
+      for (j = 0; j < new_states.length; j++) {
         if (i != j)
           f = f.add(new_state.get_force(new_states[j]));
       }
-      a = f.divide(state.m);
+      a = f.divide(old_state.m);
 
       // Velocity verlet.
       new_state.a = a;
