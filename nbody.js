@@ -29,13 +29,13 @@ var State = function(x, v, a, m) {
   var self = this;
 
   // The position (m).
-  self.x = x;
+  self.x = x || new Vector([0, 0]);
   // The velocity (m s^-1).
-  self.v = v;
+  self.v = v || new Vector([0, 0]);
   // The acceleration (m s^-2).
-  self.a = a;
+  self.a = a || new Vector([0, 0]);
   // The mass (kg).
-  self.m = m;
+  self.m = m || 0;
 
   self.hash = function() {
     // Generate a hash of the state for use in caching.
