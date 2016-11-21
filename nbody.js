@@ -185,7 +185,7 @@ var Simulation = function() {
       f = Vector([0, 0]);
       for (j = 0; j < new_states.length; i++) {
         if (i != j)
-          f.add(new_state.get_force(new_states[j]));
+          f = f.add(new_state.get_force(new_states[j]));
       }
       a = f.divide(state.m);
 
