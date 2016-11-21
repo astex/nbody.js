@@ -42,7 +42,7 @@ var State = function(x, v, a, m) {
     //
     // Returns:
     //  A hash of the state.
-    return '[' + self.x.hash() + ',' + self.v.hash() + ',' + self.m + ']';
+    return '[' + self.x.hash() + ',' + self.v.hash() + ',' + self.a.hash() + ',' + self.m + ']';
   };
 
   // A cache of get_force calculations.
