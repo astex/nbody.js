@@ -22,7 +22,7 @@ var Vector = function(values) {
 
   self.copy = function() {
     // Get a duplicate vector.
-    return (new Vector(self.values));
+    return (new Vector(self.values.slice()));
   };
 
   self.divide = function(c) {
@@ -33,13 +33,7 @@ var Vector = function(values) {
     //
     // Returns:
     //  A new vector with each value divided by c.
-    var copy = self.copy();
-    var i;
-
-    for (i = 0; i < self.values.length; i++) {
-      copy.values[i] /= c;
-    }
-    return copy;
+    return self.multiply(1 / c);
   };
 
   self.multiply = function(c) {
@@ -119,11 +113,11 @@ var Vector = function(values) {
     for (i = 0; i < self.values.length; i++) {
       s += Math.pow(self.values[i], dimension)
     }
-    return Math.pow(s, -1 * dimension);
+    return Math.pow(s, 1 / dimension);
   };
 
   self.unit = function() {
     // Get a unit vector in the direction of this vector.
-    return self.divide(self, self.magnitude());
+    return self.divide(self.magnitude());
   };
 };
