@@ -29,4 +29,4 @@ var simulation = (new Simulation())
 simulation.step_size = 1;
 ```
 
-With this, we now have a simulation with one planet that has an initial position of `(0, 1 m)`, no initial velocity, an initial acceleration of `(1 m s^-2, 0)`, and a mass of `1 kg`.  Each timestep will be `1 s`.  This will probably not be a very interesting simulation, but more planets can be added freely as shown in the included [example of our solar system](sol) ([demo here](http://nbody.astex.io/sol)).
+With this, we now have a simulation with one planet that has an initial position of `(0, 1 m)`, no initial velocity, an initial acceleration of `(1 m s^-2, 0)`, and a mass of `1 kg`.  Each timestep will be `1 s`.  This will probably not be a very interesting simulation, but more planets can be added freely as shown in the included [example of our solar system](examples/sol) ([demo here](http://nbody.astex.io/examples/sol)).
