@@ -1,6 +1,11 @@
 var au = 1.496 * Math.pow(10, 11);
-var display_size = 50 * au;
-var circle_size = .1;
+var scale = 50 * au;
+var circle_size = 2;
+// The number of simulation steps to calculate in between each draw.
+//
+// This number should be large enough to avoid artifacts, but small enough for smooth performance.
+var steps_per_draw = 1;
+var step_size = 5 * 24 * 60 * 60; // Five days.
 
 var a = function(state1, state2) {
   // Get the acceleration from state1 to state2.
@@ -52,20 +57,22 @@ var simulation = new Simulation()
   .add_body((new Body()).set_state(saturn))
   .add_body((new Body()).set_state(uranus))
   .add_body((new Body()).set_state(neptune));
-simulation.step_size = 5 * 24 * 60 * 60; // Five days.
+simulation.step_size = step_size;
 
 var draw = function() {
   // Draw the simulation onto the page.
   var canvas = document.getElementsByTagName('canvas')[0];
   var ctx = canvas.getContext("2d");
-  var scale;
+  var scale_factor;
   var i;
   var state;
   var x, y;
 
+  // TODO: Find a better place to scale the canvas to the window.
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
-  scale = Math.min(canvas.height, canvas.width) / display_size / 2;
+
+  scale_factor = Math.min(canvas.height, canvas.width) / scale / 2;
   center_x = canvas.width / 2;
   center_y = canvas.height / 2;
 
@@ -73,8 +80,8 @@ var draw = function() {
 
   for (i = 0; i < simulation.bodies.length; i++) {
     state = simulation.bodies[i].get_state();
-    x = center_x + scale * state.x.values[0];
-    y = center_y + scale * state.x.values[1];
+    x = center_x + scale_factor * state.x.values[0];
+    y = center_y + scale_factor * state.x.values[1];
     ctx.beginPath();
     ctx.arc(x, y, circle_size, 0, 2 * Math.PI);
     ctx.stroke();
@@ -83,8 +90,10 @@ var draw = function() {
 
 var main = function() {
   // The main loop.
+  var i;
+
   draw();
-  simulation.step();
+  for (i = 0; i < steps_per_draw; i++) { simulation.step(); }
   window.requestAnimationFrame(main);
 };
 window.requestAnimationFrame(main);
