@@ -51,7 +51,8 @@ var State = function(x, v, a, m) {
     // Get the force on this state by another.
     //
     // This function is cached for each value of other.  In addition, this
-    // function sets the cache on other.
+    // function sets the cache on other to the opposite of the force on this
+    // (every action has an equal and opposite reaction).
     //
     // Args:
     //  other: Another body instance.
