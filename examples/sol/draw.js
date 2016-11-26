@@ -88,6 +88,15 @@ var draw = function() {
   }
 };
 
+window.onkeyup = function(e) {
+  // Zoom in: shift + up
+  if (e.shiftKey && e.keyCode == 38) {
+    if (scale > au) { scale -= au; }
+  }
+  // Zoom out: shift + down
+  else if (e.shiftKey && e.keyCode == 40) scale += au;
+};
+
 var main = function() {
   // The main loop.
   var i;
