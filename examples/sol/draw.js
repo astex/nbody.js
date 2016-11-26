@@ -4,8 +4,8 @@ var circle_size = 2;
 // The number of simulation steps to calculate in between each draw.
 //
 // This number should be large enough to avoid artifacts, but small enough for smooth performance.
-var steps_per_draw = 1;
-var step_size = 5 * 24 * 60 * 60; // Five days.
+var steps_per_draw = 5;
+var step_size = 24 * 60 * 60; // One day.
 
 var a = function(state1, state2) {
   // Get the acceleration from state1 to state2.
